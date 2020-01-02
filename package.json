@@ -1,0 +1,35 @@
+{
+  "name": "binking-js",
+  "version": "1.0.0",
+  "description": "Get bank logo, colors, brand and etc. by card number",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test || true",
+    "build": "node build",
+    "lint": "eslint index.js build.js test.js || true",
+    "lint-fix": "eslint index.js build.js test.js --fix || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/binkingio/binking-js.git"
+  },
+  "author": {
+    "name": "BinKing",
+    "email": "support@binking.io",
+    "url": "https://binking.io"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "expect.js": "^0.3.1",
+    "mocha": "^6.2.2",
+    "uglify-js": "3.7.2",
+    "underscore": "^1.9.1",
+    "xmlhttprequest": "^1.8.0"
+  }
+}
