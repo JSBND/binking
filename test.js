@@ -49,12 +49,12 @@ var getBankSberbankApiResult = {
   bankAlias: 'ru-sberbank',
   bankName: 'Sberbank',
   bankLocalName: 'Сбербанк России',
-  bankLogoBigOriginalSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/c4902a868555835e.svg',
-  bankLogoBigDarkSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/2553ee39193f832b.svg',
-  bankLogoBigLightSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/dd12813fcdc36407.svg',
-  bankLogoSmallOriginalSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/3dc348ddd7af05f0.svg',
-  bankLogoSmallDarkSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/140dabf53b7fdc36.svg',
-  bankLogoSmallLightSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/0d4639f082f52d37.svg',
+  bankLogoBigOriginalSvg: 'https://static.binking.io/banks-logos/c4902a868555835e.svg',
+  bankLogoBigDarkSvg: 'https://static.binking.io/banks-logos/2553ee39193f832b.svg',
+  bankLogoBigLightSvg: 'https://static.binking.io/banks-logos/dd12813fcdc36407.svg',
+  bankLogoSmallOriginalSvg: 'https://static.binking.io/banks-logos/3dc348ddd7af05f0.svg',
+  bankLogoSmallDarkSvg: 'https://static.binking.io/banks-logos/140dabf53b7fdc36.svg',
+  bankLogoSmallLightSvg: 'https://static.binking.io/banks-logos/0d4639f082f52d37.svg',
   bankColor: '#1a9f29',
   bankColors: ['#1a9f29'],
   bankCountry: 'ru',
@@ -66,8 +66,8 @@ var getBankSberbankApiResult = {
   formBackgroundLightness: 'dark',
   formTextColor: '#ffffff',
   formBorderColor: '#ffffff',
-  formBankLogoBigSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/dd12813fcdc36407.svg',
-  formBankLogoSmallSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/0d4639f082f52d37.svg',
+  formBankLogoBigSvg: 'https://static.binking.io/banks-logos/dd12813fcdc36407.svg',
+  formBankLogoSmallSvg: 'https://static.binking.io/banks-logos/0d4639f082f52d37.svg',
   formLogoScheme: 'light'
 }
 var getBankSberbankArchiveResult = {
@@ -100,12 +100,12 @@ var bankDetectedBrandDetectedResult = {
   bankAlias: 'ru-sberbank',
   bankName: 'Sberbank',
   bankLocalName: 'Сбербанк России',
-  bankLogoBigOriginalSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/c4902a868555835e.svg',
-  bankLogoBigDarkSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/2553ee39193f832b.svg',
-  bankLogoBigLightSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/dd12813fcdc36407.svg',
-  bankLogoSmallOriginalSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/3dc348ddd7af05f0.svg',
-  bankLogoSmallDarkSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/140dabf53b7fdc36.svg',
-  bankLogoSmallLightSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/0d4639f082f52d37.svg',
+  bankLogoBigOriginalSvg: 'https://static.binking.io/banks-logos/c4902a868555835e.svg',
+  bankLogoBigDarkSvg: 'https://static.binking.io/banks-logos/2553ee39193f832b.svg',
+  bankLogoBigLightSvg: 'https://static.binking.io/banks-logos/dd12813fcdc36407.svg',
+  bankLogoSmallOriginalSvg: 'https://static.binking.io/banks-logos/3dc348ddd7af05f0.svg',
+  bankLogoSmallDarkSvg: 'https://static.binking.io/banks-logos/140dabf53b7fdc36.svg',
+  bankLogoSmallLightSvg: 'https://static.binking.io/banks-logos/0d4639f082f52d37.svg',
   bankColor: '#1a9f29',
   bankColors: ['#1a9f29'],
   bankCountry: 'ru',
@@ -113,18 +113,18 @@ var bankDetectedBrandDetectedResult = {
   bankPhone: '8 800 555-55-50',
   brandAlias: 'visa',
   brandName: 'Visa',
-  brandLogoOriginalSvg: 'https://binking-bucket.s3.amazonaws.com/brands-logos/visa-original.svg',
-  brandLogoDarkSvg: 'https://binking-bucket.s3.amazonaws.com/brands-logos/visa-dark.svg',
-  brandLogoLightSvg: 'https://binking-bucket.s3.amazonaws.com/brands-logos/visa-light.svg',
+  brandLogoOriginalSvg: 'https://static.binking.io/brands-logos/visa-original.svg',
+  brandLogoDarkSvg: 'https://static.binking.io/brands-logos/visa-dark.svg',
+  brandLogoLightSvg: 'https://static.binking.io/brands-logos/visa-light.svg',
   formBackgroundColor: '#1a9f29',
   formBackgroundColors: ['#1a9f29', '#0d7518'],
   formBackgroundGradient: 'linear-gradient(135deg, #1a9f29, #0d7518)',
   formBackgroundLightness: 'dark',
   formTextColor: '#ffffff',
   formBorderColor: '#ffffff',
-  formBrandLogoSvg: 'https://binking-bucket.s3.amazonaws.com/brands-logos/visa-light.svg',
-  formBankLogoBigSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/dd12813fcdc36407.svg',
-  formBankLogoSmallSvg: 'https://binking-bucket.s3.amazonaws.com/banks-logos/0d4639f082f52d37.svg',
+  formBrandLogoSvg: 'https://static.binking.io/brands-logos/visa-light.svg',
+  formBankLogoBigSvg: 'https://static.binking.io/banks-logos/dd12813fcdc36407.svg',
+  formBankLogoSmallSvg: 'https://static.binking.io/banks-logos/0d4639f082f52d37.svg',
   formLogoScheme: 'light',
   codeName: 'CVV',
   codeMinLength: 3,
@@ -165,16 +165,16 @@ var bankNotDetectedBrandDetectedResult = {
   bankPhone: null,
   brandAlias: 'visa',
   brandName: 'Visa',
-  brandLogoOriginalSvg: 'https://binking-bucket.s3.amazonaws.com/brands-logos/visa-original.svg',
-  brandLogoDarkSvg: 'https://binking-bucket.s3.amazonaws.com/brands-logos/visa-dark.svg',
-  brandLogoLightSvg: 'https://binking-bucket.s3.amazonaws.com/brands-logos/visa-light.svg',
+  brandLogoOriginalSvg: 'https://static.binking.io/brands-logos/visa-original.svg',
+  brandLogoDarkSvg: 'https://static.binking.io/brands-logos/visa-dark.svg',
+  brandLogoLightSvg: 'https://static.binking.io/brands-logos/visa-light.svg',
   formBackgroundColor: '#eeeeee',
   formBackgroundColors: ['#eeeeee', '#dddddd'],
   formBackgroundGradient: 'linear-gradient(135deg, #eeeeee, #dddddd)',
   formBackgroundLightness: 'light',
   formTextColor: '#000000',
   formBorderColor: '#333333',
-  formBrandLogoSvg: 'https://binking-bucket.s3.amazonaws.com/brands-logos/visa-original.svg',
+  formBrandLogoSvg: 'https://static.binking.io/brands-logos/visa-original.svg',
   formBankLogoBigSvg: null,
   formBankLogoSmallSvg: null,
   formLogoScheme: null,
@@ -249,16 +249,16 @@ var brandDetectedResult = {
   bankPhone: null,
   brandAlias: 'visa',
   brandName: 'Visa',
-  brandLogoOriginalSvg: 'https://binking-bucket.s3.amazonaws.com/brands-logos/visa-original.svg',
-  brandLogoDarkSvg: 'https://binking-bucket.s3.amazonaws.com/brands-logos/visa-dark.svg',
-  brandLogoLightSvg: 'https://binking-bucket.s3.amazonaws.com/brands-logos/visa-light.svg',
+  brandLogoOriginalSvg: 'https://static.binking.io/brands-logos/visa-original.svg',
+  brandLogoDarkSvg: 'https://static.binking.io/brands-logos/visa-dark.svg',
+  brandLogoLightSvg: 'https://static.binking.io/brands-logos/visa-light.svg',
   formBackgroundColor: '#eeeeee',
   formBackgroundColors: ['#eeeeee', '#dddddd'],
   formBackgroundGradient: 'linear-gradient(135deg, #eeeeee, #dddddd)',
   formBackgroundLightness: 'light',
   formTextColor: '#000000',
   formBorderColor: '#333333',
-  formBrandLogoSvg: 'https://binking-bucket.s3.amazonaws.com/brands-logos/visa-original.svg',
+  formBrandLogoSvg: 'https://static.binking.io/brands-logos/visa-original.svg',
   formBankLogoBigSvg: null,
   formBankLogoSmallSvg: null,
   formLogoScheme: null,
@@ -967,7 +967,7 @@ describe('binking.getBrand()', function () {
     var brandWithLogos = binking.getBrand('visa')
     expect(brandWithLogos.alias).to.eql('visa')
     expect(brandWithLogos.name).to.eql('Visa')
-    expect(brandWithLogos.logoOriginalSvg).to.eql('https://binking-bucket.s3.amazonaws.com/brands-logos/visa-original.svg')
+    expect(brandWithLogos.logoOriginalSvg).to.eql('https://static.binking.io/brands-logos/visa-original.svg')
     brandWithLogos = binking.getBrand('mastercard', { brandsLogosPath: 'xxx/' })
     expect(brandWithLogos.alias).to.eql('mastercard')
     expect(brandWithLogos.name).to.eql('Mastercard')
@@ -988,7 +988,7 @@ describe('binking.getBrands()', function () {
     var visa = _.find(brandsWithLogos, { alias: 'visa' })
     expect(visa.alias).to.eql('visa')
     expect(visa.name).to.eql('Visa')
-    expect(visa.logoOriginalSvg).to.eql('https://binking-bucket.s3.amazonaws.com/brands-logos/visa-original.svg')
+    expect(visa.logoOriginalSvg).to.eql('https://static.binking.io/brands-logos/visa-original.svg')
   })
 
   it('should return array with brands setted in brandsAliases', function () {

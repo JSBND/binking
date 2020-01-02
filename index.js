@@ -573,9 +573,9 @@
 
   binking._XMLHttpRequest = typeof XMLHttpRequest !== 'undefined' ? XMLHttpRequest : undefined
 
-  binking._defaultApiFormUrl = 'http://localhost:8008/form'
-  binking._defaultApiBankUrl = 'http://localhost:8008/bank'
-  binking._defaultApiBanksUrl = 'http://localhost:8008/banks'
+  binking._defaultApiFormUrl = 'http://api.binking.io/form'
+  binking._defaultApiBankUrl = 'http://api.binking.io/bank'
+  binking._defaultApiBanksUrl = 'http://api.binking.io/banks'
 
   binking.defaultOptions = {
     strategy: 'api',
@@ -586,7 +586,7 @@
     sandbox: false,
     sync: false,
     banksLogosPath: '',
-    brandsLogosPath: 'https://binking-bucket.s3.amazonaws.com/brands-logos/',
+    brandsLogosPath: 'https://static.binking.io/brands-logos/',
     maskDigitSymbol: '0',
     maskDelimiterSymbol: ' ',
     gradientDegrees: 135,
