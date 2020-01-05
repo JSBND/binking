@@ -72,12 +72,23 @@
     return brandWithLogos
   }
 
-  binking.getBrands = function (brandAliases, optionsSource) {
-    var brandAliasesHere = brandAliases || Object.keys(binking._brands)
+  binking.getBrands = function (brandsAliasesOrOptions, optionsSource) {
+    var brandsAliases
+    var options
+    if (!brandsAliasesOrOptions) {
+      brandsAliases = Object.keys(binking._brands)
+      options = {}
+    } else if (binking._isArray(brandsAliasesOrOptions)) {
+      brandsAliases = brandsAliasesOrOptions
+      options = optionsSource
+    } else {
+      brandsAliases = Object.keys(binking._brands)
+      options = brandsAliasesOrOptions
+    }
     var brandsWithLogos = []
-    for (var i = 0; i < brandAliasesHere.length; i++) {
-      var brandAlias = brandAliasesHere[i]
-      var brandWithLogos = binking.getBrand(brandAlias, optionsSource)
+    for (var i = 0; i < brandsAliases.length; i++) {
+      var brandAlias = brandsAliases[i]
+      var brandWithLogos = binking.getBrand(brandAlias, options)
       if (brandWithLogos) brandsWithLogos.push(brandWithLogos)
     }
     return brandsWithLogos
@@ -573,9 +584,9 @@
 
   binking._XMLHttpRequest = typeof XMLHttpRequest !== 'undefined' ? XMLHttpRequest : undefined
 
-  binking._defaultApiFormUrl = 'http://api.binking.io/form'
-  binking._defaultApiBankUrl = 'http://api.binking.io/bank'
-  binking._defaultApiBanksUrl = 'http://api.binking.io/banks'
+  binking._defaultApiFormUrl = 'https://api.binking.io/form'
+  binking._defaultApiBankUrl = 'https://api.binking.io/bank'
+  binking._defaultApiBanksUrl = 'https://api.binking.io/banks'
 
   binking.defaultOptions = {
     strategy: 'api',

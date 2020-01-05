@@ -981,7 +981,7 @@ describe('binking.getBrand()', function () {
 })
 
 describe('binking.getBrands()', function () {
-  it('should return array with all brands with logos if brandsAliases not settede', function () {
+  it('should return array with all brands with logos if brandsAliases not setted', function () {
     var brandsWithLogos = binking.getBrands()
     expect(brandsWithLogos).to.be.an('array')
     expect(brandsWithLogos.length).to.eql(Object.keys(binking._brands).length)
@@ -991,7 +991,27 @@ describe('binking.getBrands()', function () {
     expect(visa.logoOriginalSvg).to.eql('https://static.binking.io/brands-logos/visa-original.svg')
   })
 
+  it('should return array with all brands with logos if brandsAliases not setted and options setteed', function () {
+    var brandsWithLogos = binking.getBrands({ brandsLogosPath: 'yyy/' })
+    expect(brandsWithLogos).to.be.an('array')
+    expect(brandsWithLogos.length).to.eql(Object.keys(binking._brands).length)
+    var visa = _.find(brandsWithLogos, { alias: 'visa' })
+    expect(visa.alias).to.eql('visa')
+    expect(visa.name).to.eql('Visa')
+    expect(visa.logoOriginalSvg).to.eql('yyy/visa-original.svg')
+  })
+
   it('should return array with brands setted in brandsAliases', function () {
+    var brandsWithLogos = binking.getBrands(['visa', 'mastercard'])
+    expect(brandsWithLogos).to.be.an('array')
+    expect(brandsWithLogos.length).to.eql(2)
+    var mastercard = _.find(brandsWithLogos, { alias: 'mastercard' })
+    expect(mastercard.alias).to.eql('mastercard')
+    expect(mastercard.name).to.eql('Mastercard')
+    expect(mastercard.logoDarkSvg).to.eql('https://static.binking.io/brands-logos/mastercard-dark.svg')
+  })
+
+  it('should return array with brands setted in brandsAliases and setted options', function () {
     var brandsWithLogos = binking.getBrands(['visa', 'mastercard'], { brandsLogosPath: 'xxx/' })
     expect(brandsWithLogos).to.be.an('array')
     expect(brandsWithLogos.length).to.eql(2)
