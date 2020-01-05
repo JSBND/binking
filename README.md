@@ -305,7 +305,7 @@ var result = binking.getBrands(brandsAliases, options)
 
 Перечень брендов: Visa, Mastercard, American Express, Diners Club, Discover, JCB, UnionPay, Maestro, Mir.
 
-Перечень алиасов брендов: `'visa'`, `'mastercard'`, `'american-express'`, `'diners-club'`, `'discover'`, `'jcb'`, `'unionpay'`, `'maestro'`, `'mir'.
+Перечень алиасов брендов: `visa`, `mastercard`, `american-express`, `diners-club`, `discover`, `jcb`, `unionpay`, `maestro`, `mir`.
 
 ## Разработка и тестирование
 
@@ -315,4 +315,4 @@ var result = binking.getBrands(brandsAliases, options)
 
 Чтобы прогнать тесты в браузере, откройте файл `test.html` в браузере, после этого в строке браузера добавьте `#YOUR_API_KEY`. Например: `file:///Users/username/binking-js/test.html#YOUR_API_KEY`.
 
-Если ключ апи не указать, тесты провалятся. Все запросы к апи во время теста уходят с флагом sandbox=1, так что эти запросы являются абсолютно бесплатными.
+Если ключ апи не указать, тесты провалятся. Все запросы к апи во время теста уходят с флагом `sandbox=1`, так что эти запросы являются абсолютно бесплатными.
