@@ -1,6 +1,6 @@
 /*
  * binking v1.0.0
- * Get bank logo, colors, brand and etc. by card number
+ * Get bank logo, colors, phone, brand and etc. by card number
  * https://github.com/binkingio/binking.git
  * by BinKing (https://binking.io)
  */
