@@ -1,7 +1,7 @@
 /*
- * binking-js v1.0.0
+ * binking v1.0.0
  * Get bank logo, colors, brand and etc. by card number
- * https://github.com/binkingio/binking-js.git
+ * https://github.com/binkingio/binking.git
  * by BinKing (https://binking.io)
  */
 

@@ -1,5 +1,5 @@
 {
-  "name": "binking-js",
+  "name": "binking",
   "version": "1.0.0",
   "description": "Get bank logo, colors, brand and etc. by card number",
   "main": "index.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/binkingio/binking-js.git"
+    "url": "git+https://github.com/binkingio/binking.git"
   },
   "author": {
     "name": "BinKing",
