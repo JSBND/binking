@@ -9,7 +9,7 @@ var banks = {
   'ru-sberbank': {
     bankAlias: 'ru-sberbank',
     bankName: 'Sberbank',
-    bankLocalName: 'Сбербанк России',
+    bankLocalName: 'Сбербанк',
     bankColor: '#1a9f29',
     bankColors: ['#1a9f29'],
     bankCountry: 'ru',
@@ -48,7 +48,7 @@ var bins = {
 var getBankSberbankApiResult = {
   bankAlias: 'ru-sberbank',
   bankName: 'Sberbank',
-  bankLocalName: 'Сбербанк России',
+  bankLocalName: 'Сбербанк',
   bankLogoBigOriginalSvg: 'https://static.binking.io/banks-logos/c4902a868555835e.svg',
   bankLogoBigDarkSvg: 'https://static.binking.io/banks-logos/2553ee39193f832b.svg',
   bankLogoBigLightSvg: 'https://static.binking.io/banks-logos/dd12813fcdc36407.svg',
@@ -73,7 +73,7 @@ var getBankSberbankApiResult = {
 var getBankSberbankArchiveResult = {
   bankAlias: 'ru-sberbank',
   bankName: 'Sberbank',
-  bankLocalName: 'Сбербанк России',
+  bankLocalName: 'Сбербанк',
   bankLogoBigOriginalSvg: 'ru-sberbank-big-original.svg',
   bankLogoBigDarkSvg: 'ru-sberbank-big-dark.svg',
   bankLogoBigLightSvg: 'ru-sberbank-big-light.svg',
@@ -99,7 +99,7 @@ var bankDetectedBrandDetectedCardNumber = '40233300'
 var bankDetectedBrandDetectedResult = {
   bankAlias: 'ru-sberbank',
   bankName: 'Sberbank',
-  bankLocalName: 'Сбербанк России',
+  bankLocalName: 'Сбербанк',
   bankLogoBigOriginalSvg: 'https://static.binking.io/banks-logos/c4902a868555835e.svg',
   bankLogoBigDarkSvg: 'https://static.binking.io/banks-logos/2553ee39193f832b.svg',
   bankLogoBigLightSvg: 'https://static.binking.io/banks-logos/dd12813fcdc36407.svg',
