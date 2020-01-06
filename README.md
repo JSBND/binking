@@ -19,7 +19,7 @@ import binking from "binking-js";
 Можете подключить используя ссылку с минифицированным `https://static.binking.io/js/binking.1.0.0.min.js` или полным кодом `https://static.binking.io/js/binking.1.0.0.js` три цифры в конце обозначают версию плагина:
 
 ```html
-<script src="https://static.binking.io/js/binking.1.0.0.min.js" />
+<script src="https://static.binking.io/js/binking.1.0.0.min.js"></script>
 ```
 
 После этого функция `binking` будет доступна в глобальной области видимости.
