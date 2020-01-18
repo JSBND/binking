@@ -359,7 +359,7 @@ var result = binking.validate(cardNumber, month, year, code);
 
 ```js
 var result = binking.validate("1234", "13", "2a", "12345");
-console.log(result)
+console.log(result);
 ```
 
 ```js
