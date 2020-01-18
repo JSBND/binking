@@ -1,8 +1,8 @@
 {
   "name": "binking",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Get bank logo, colors, phone, brand, validation and etc. by card number",
-  "main": "index.js",
+  "main": "dist/binking.min.js",
   "scripts": {
     "test": "mocha test || true",
     "build": "node build",

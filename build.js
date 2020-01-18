@@ -4,7 +4,11 @@ const pkg = require('./package.json')
 const UglifyJS = require('uglify-js')
 
 const uglify = code => {
-  return UglifyJS.minify(code).code
+  const result = UglifyJS.minify(code)
+  if (result.error) {
+    throw result.error
+  }
+  return result.code
 }
 const getDestPath = basename => {
   return path.resolve(__dirname, 'dist', basename)

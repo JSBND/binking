@@ -346,7 +346,7 @@
     }
     return {
       hasErrors: hasErrors,
-      errors
+      errors: errors
     }
   }
 
