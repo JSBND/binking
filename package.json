@@ -1,6 +1,6 @@
 {
   "name": "binking",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Get bank logo, colors, phone, brand, validation and etc. by card number",
   "main": "index.js",
   "scripts": {
