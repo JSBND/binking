@@ -1,32 +1,32 @@
 # BinKing
 
-BinKing позволяет по номеру карты получить логотип банка, цвета, номер телефона, логотип бренда и прочее. Используйте эти данные, чтобы создать восхитительную форму для приёма банковских карт. Увеличьте конверсию, увеличьте лояльность пользователей, снизте нагрузку отдела поддержки.
+BinKing — инструмент для созданния королевских форм приёма банковских карт. BinKing позволяет по номеру карты получить логотип банка, цвета, номер телефона, логотип бренда и прочее. Также BinKing помогает в валидации таких форм. Используйте BinKing, чтобы создать умную и отзывчивую форму для приёма банковских карт. Увеличьте конверсию, увеличьте лояльность пользователей, снизте нагрузку отдела поддержки.
 
 Для использования плагина вам понадобится API ключ или данные из архива. Ключ и архив можно получить в личном кабинете [на сайте BinKing.](https://binking.io) Перечень доступных банков и стран смотрите [на этой странице.](https://binking.io/docs/banks)
 
-Демонстрация использования плагина доступна на [CodePen.](https://codepen.io/binkingio/pen/BayJdPx)
+Демонстрация использования плагина доступна на [CodePen.](https://codepen.io/binkingio/pen/povxdWZ)
 
-(Иллюстрация)
+> Создание платёжной формы — это комплексная задача. Сам по себе BinKing лишь вспомогательный инструмент. Мы написали [подробный гайд по созданию платёжной форсы,](https://binking.io/guide). Следуя нашим рекомендациям, вы создадите платёжную форму, лучше которой сложно себе и представить. В тексте статьи содержится полный пример кода, который можно просто скопировать к себе и использовать. При желании вы легко сможете его доработать под свои нужды.
 
-## Подключение
+## Подключение плагина
 
-Можете установить плагин с помощью `$ yarn add binking-js` или `$ npm i binking-js --save` после чего импортируйте его в своём коде
+Можете установить плагин с помощью `$ yarn add binking` или `$ npm i binking --save` после чего импортируйте его в своём коде
 
 ```js
-import binking from "binking-js";
+import binking from "binking";
 ```
 
-Можете подключить используя ссылку с минифицированным `https://static.binking.io/js/binking.1.0.0.min.js` или полным кодом `https://static.binking.io/js/binking.1.0.0.js` три цифры в конце обозначают версию плагина:
+Можете подключить используя ссылку CDN `https://unpkg.com/binking`
 
 ```html
-<script src="https://static.binking.io/js/binking.1.0.0.min.js"></script>
+<script src="https://unpkg.com/binking"></script>
 ```
 
 После этого функция `binking` будет доступна в глобальной области видимости.
 
 ## Настройки
 
-Вы можете изменить настройки по-умолчанию, а можете передавать их при каждом вызове.
+Вы можете изменить настройки по умолчанию, а можете передавать их при каждом вызове.
 
 Для изменения настроек по умолчанию вызовите:
 
@@ -77,7 +77,7 @@ binking.setDefaultOptions({
 
 Если вы приобрели архив, и решили использовать его на стороне клиента, вам необходимо установить следующие настройки:
 
-- **`strategy`** по умолчанию `"api"`
+- **`strategy`** по умолчанию `"api"`  
   Установите `"archive"`
 - **`banksLogosPath`** по умолчанию `""`  
   Путь к файлам с логотипами банков. Загрузите логотипы банков к себе на сервер и укажите путь к ним в этом свойстве.
@@ -168,6 +168,8 @@ var result = binking(cardNumber, options);
   Цвет для фона формы.
 - **`formBackgroundColors`** по умолчанию `["#eeeeee", "#dddddd"]`  
   Массив цветов для градиентного фона формы.
+- **`formBackgroundGradient`** по умолчанию `["#eeeeee", "#dddddd"]`  
+  Содержит строку с CSS значением свойства background, установив которое, вы получите градиент из цветов указанны в поле `formBackgroundColors`. Угол можно указать в свойстве настроек `gradientDegrees`.
 - **`formBackgroundLightness`** по умолчанию `"light"`  
   Фон скорее тёмный "dark" или светлый "light".
 - **`formTextColor`** по умолчанию `"#000000"`  
@@ -192,12 +194,6 @@ var result = binking(cardNumber, options);
   Короткое название типа на английском, все буквы маленькие, без пробелов.
 - **`brandName`** по умолчанию `null`  
   Полное название типа.
-- **`brandLogo`** по умолчанию `null`  
-  Путь к логотипу типа. Для каждого типа в папке `dist/brands-logos` есть логотип в формате PNG и SVG и в трёх стилях: чёрном, белом и цветном. Имя файла определяется свойством экземпляра `brandAlias`. Путь к файлу определяется свойством настроек `brandsLogosPath`. Расширение логотипа определяется свойством настроек `preferredExt`. Стиль логотипа определяется свойством настроек `brandLogoPolicy`. Пример: для типа «Visa» значение будет `"/bower_components/card-info/dist/brands-logos/visa-colored.svg"`.
-- **`brandLogoPng`** по умолчанию `null`  
-  Путь к логотипу типа в формате PNG.
-- **`brandLogoSvg`** по умолчанию `null`  
-  Путь к логотипу типа в формате SVG.
 - **`codeName`** по умолчанию `null`  
   Название кода на обратной стороне карты (CVC/CID/CVV/CVN/CVP2).
 - **`codeMinLength`** по умолчанию `3`  
@@ -212,16 +208,22 @@ var result = binking(cardNumber, options);
   Массив с числами, определяющими количество цифр в каждом блоке маски. Определяется на основании свойства `cardNumberGaps` и максимального числа в `cardNumberLengths`.
 - **`cardNumberLengths`** по умолчанию `[12, 13, 14, 15, 16, 17, 18, 19]`  
   Массив с числами, определяющими допустимое количество символов в номере карты.
+- **`cardNumberMinLength`** по умолчанию `12`  
+  Минимальное допустимое количество симовлов в номере карты.
+- **`cardNumberMaxLength`** по умолчанию `19`  
+  Максимальное допустимое количество симовлов в номере карты.
+- **`cardNumberValidByLuhn`** по умолчанию `true`  
+  Вадиден ли номер карты по алгоритму Луна. (Алгоритм проверяющий номер карты на опечатки).
 - **`cardNumberNice`**  
   Номер карты, приведённый к красивому виду. Маска определяется свойством `cardNumberMask`. Пример: 4377730000000000 → 4377 7300 0000 0000, 437773 → 4377 73.
 - **`cardNumberNormalized`**  
   Номер карты в виде строки с удалёнными пробелами. Если в переданном номере карты были какие-либо символы, кроме цифр и пробелов, будет пустая строка.
 - **`cardNumberSource`**  
-  Номер карты, переданный при создании экземпляра.
+  Номер карты, переданный при вызове функции.
 
 Если по номеру карты не удалось определить данные о банке, поля `bankAlias`, `bankName`, `bankLocalName`, `bankCountry`, `bankSite`, `bankPhone`, `bankLogoBigOriginalSvg`, `bankLogoBigDarkSvg`, `bankLogoBigLightSvg`, `bankLogoSmallOriginalSvg`, `bankLogoSmallDarkSvg`, `bankColor`, `bankColors`, `formBackgroundColor`, `formBackgroundColors`, `formBackgroundGradient`, `formBackgroundLightness`, `formTextColor`, `formBorderColor`, `formBankLogoBigSvg`, `formBankLogoSmallSvg` будут иметь значение по умолчанию.
 
-Если по первым цифрам в номере карты не удалось определить данные о типе, поля `brandAlias`, `brandName`, `brandLogoOriginalSvg`, `brandLogoDarkSvg`, `brandLogoLightSvg`, `formBrandLogoSvg`, `codeName`, `codeMinLength`, `codeMaxLength`, `cardNumberMask`, `cardNumberGaps`, `cardNumberBlocks`, `cardNumberLengths` будут иметь значение по умолчанию.
+Если по номеру карты не удалось определить данные о типе, поля `brandAlias`, `brandName`, `brandLogoOriginalSvg`, `brandLogoDarkSvg`, `brandLogoLightSvg`, `formBrandLogoSvg`, `codeName`, `codeMinLength`, `codeMaxLength`, `cardNumberMask`, `cardNumberGaps`, `cardNumberBlocks`, `cardNumberLengths` будут иметь значение по умолчанию.
 
 ### Получение данных конкретного банка
 
@@ -315,6 +317,17 @@ var result = binking.getBrand(brandAlias, options);
 - **`bankName`** по умолчанию `null`  
   Название банка на английском.
 
+### Получение ссылки на логотип бренда
+
+```js
+var result = binking.getBrandLogo(brandAlias);
+var result = binking.getBrandLogo(brandAlias, logoScheme);
+var result = binking.getBrandLogo(brandAlias, options);
+var result = binking.getBrandLogo(brandAlias, logoScheme, options);
+```
+
+Вспомогательная функция для получения ссылки на логотип бренда. Если не указывать `logoScheme`, будет счиатться, что он равен `original`. Допустимые значения для `logoScheme` — `original`, `dark` и `light`.
+
 ### Получение данных нескольких брендов
 
 ```js
@@ -327,6 +340,147 @@ var result = binking.getBrands(brandsAliases, options);
 В качестве `brandsAliases` передайте массив с алиасами бренда. Например: `["visa", "mastercard"]`. Если brandsAliases передан не будет, вы получите список всех брендов. Если один из указанных берндов найде не будет, он не попадёт в массив с результатами.
 
 В переменной `result` будет храниться массив с объектами со всеми данными о каждом бренде.
+
+## Валидация
+
+### Валидация всех данных карты
+
+```js
+var result = binking.validate(cardNumber, month, year, code);
+```
+
+Результат валидации это объект вида `{ hasErros: Boolean, errors: Object}`.
+
+Если в данных карты не найдено никаких ошибок, тогда `hasErros` будет `false`, объект `erros` будет `{}`.
+
+Если в данных карты найден какие либо ошибки. В `hasErros` будет `true`. Каждый ключ объекта будет соответствовать названию поля, к которому принадлежит ошибка. Каждое значение будет являться объектом `{ field: String, code: String, message: String }`. В свойстве `field` также содержится название поля. В свойстве `code` содердится код ошибки. В свойстве `message` сообщение об ошибке в человекопонятной форме.
+
+Пример:
+
+```js
+var result = binking.validate("1234", "13", "2a", "12345");
+console.log(result)
+```
+
+```js
+{
+  hasErros: true,
+  errors: {
+    cardNumber: {
+      field: 'cardNumber',
+      code: 'CARD_NUMBER_INCOMPLETE',
+      message: 'Номер карты заполнен не до конца',
+    },
+    month: {
+      field: 'month',
+      code: 'MONTH_INVALID',
+      message: 'Ошибка в месяце истечения карты',
+    },
+    year: {
+      field: 'year',
+      code: 'YEAR_INVALID',
+      message: 'Ошибка в годе истечения карты',
+    },
+    code: {
+      field: 'code',
+      code: 'CODE_INVALID',
+      message: 'Код безопасности указан неверно',
+    },
+  }
+}
+```
+
+Полный список ошибок соответствующих каждому из полей смотрите ниже.
+
+### Валидация номер карты
+
+```js
+var result = binking.validateCardNumber(cardNumber);
+```
+
+В ответ возвращает `undefined`, если ошибок в номере карты нету. Если какая-то ошибка есть, возваращается объект вида `{ field: 'cardNumber', code: String, message: String }`.
+
+Возможные коды (`code`) и сообщения об ошибках (`message`):
+
+- CARD_NUMBER_REQUIRED: "Укажите номер вашей банковской карты"
+- CARD_NUMBER_INVALID: "Номер карты содержит недопустимые символы"
+- CARD_NUMBER_INCOMPLETE: "Номер карты заполнен не до конца"
+- CARD_NUMBER_OVERCOMPLETE: "В номере карты слишком много символов"
+- CARD_NUMBER_LUHN: "В номере карты содержится опечатка"
+
+### Валидация месяца
+
+```js
+var result = binking.validateMonth(month);
+```
+
+В ответ возвращает `undefined`, если ошибок в месяце истечения карты нету. Если какая-то ошибка есть, возваращается объект вида `{ field: 'month', code: String, message: String }`.
+
+Возможные коды (`code`) и сообщения об ошибках (`message`):
+
+- MONTH_REQUIRED: "Укажите месяц истечения карты"
+- MONTH_INVALID: "Ошибка в месяце истечения карты"
+
+### Валидация года
+
+```js
+var result = binking.validateYear(year);
+```
+
+В ответ возвращает `undefined`, если ошибок в годе истечения карты нету. Если какая-то ошибка есть, возваращается объект вида `{ field: 'year', code: String, message: String }`.
+
+Возможные коды (`code`) и сообщения об ошибках (`message`):
+
+- YEAR_REQUIRED: "Укажите год истечения карты"
+- YEAR_INVALID: "Ошибка в годе истечения карты"
+
+### Валидация даты
+
+```js
+var result = binking.validateYear(month, year);
+```
+
+В ответ возвращает `undefined`, если ошибок в дате истечения карты нету. Если какая-то ошибка есть, возваращается объект вида `{ field: 'year' | 'month', code: String, message: String }`.
+
+Возможные коды (`code`) и сообщения об ошибках (`message`):
+
+- YEAR_IN_PAST: "Year is in the past"
+- MONTH_IN_PAST: "Month is in the past"
+
+### Валидация кода безопасности
+
+```js
+var result = binking.validateCode(code);
+```
+
+В ответ возвращает `undefined`, если ошибок в коде безопасности карты нету. Если какая-то ошибка есть, возваращается объект вида `{ field: 'code', code: String, message: String }`.
+
+Возможные коды (`code`) и сообщения об ошибках (`message`):
+
+- CODE_REQUIRED: "Укажите код безопасности"
+- CODE_INVALID: "Код безопасности указан неверно"
+
+### Установка своих сообщений об ошибках
+
+```js
+binking.setValidationErrors({
+  CARD_NUMBER_REQUIRED: "Укажите номер вашей банковской карты",
+  CARD_NUMBER_INVALID: "Номер карты содержит недопустимые символы",
+  CARD_NUMBER_INCOMPLETE: "Номер карты заполнен не до конца",
+  CARD_NUMBER_OVERCOMPLETE: "В номере карты слишком много символов",
+  CARD_NUMBER_LUHN: "В номере карты содержится опечатка",
+  MONTH_REQUIRED: "Укажите месяц истечения карты",
+  MONTH_INVALID: "Ошибка в месяце истечения карты",
+  YEAR_REQUIRED: "Укажите год истечения карты",
+  YEAR_INVALID: "Ошибка в годе истечения карты",
+  YEAR_IN_PAST: "Year is in the past",
+  MONTH_IN_PAST: "Month is in the past",
+  CODE_REQUIRED: "Укажите код безопасности",
+  CODE_INVALID: "Код безопасности указан неверно"
+});
+```
+
+В примере выше указаны дефолтные значения сообщений об ошибках. Вы сожете установить любые знчения для всех перечисленных ключей.
 
 ## Бренды
 
@@ -344,6 +498,6 @@ var result = binking.getBrands(brandsAliases, options);
 
 Чтобы прогнать тесты вызовите команду `$ API_KEY=YOUR_API_KEY npm run test`.
 
-Чтобы прогнать тесты в браузере, откройте файл `test.html` в браузере, после этого в строке браузера добавьте `#YOUR_API_KEY`. Например: `file:///Users/username/binking-js/test.html#YOUR_API_KEY`.
+Чтобы прогнать тесты в браузере, откройте файл `test.html` в браузере, после этого в строке браузера добавьте `#YOUR_API_KEY`. Например: `file:///Users/username/binking/test.html#YOUR_API_KEY`.
 
 Если ключ апи не указать, тесты провалятся. Все запросы к апи во время теста уходят с флагом `sandbox=1`, так что эти запросы являются абсолютно бесплатными.

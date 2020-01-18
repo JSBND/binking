@@ -1,7 +1,7 @@
 {
   "name": "binking",
   "version": "1.0.0",
-  "description": "Get bank logo, colors, phone, brand and etc. by card number",
+  "description": "Get bank logo, colors, phone, brand, validation and etc. by card number",
   "main": "index.js",
   "scripts": {
     "test": "mocha test || true",

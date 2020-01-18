@@ -1,6 +1,6 @@
 /*
  * binking v1.0.0
- * Get bank logo, colors, phone, brand and etc. by card number
+ * Get bank logo, colors, phone, brand, validation and etc. by card number
  * https://github.com/binkingio/binking.git
  * by BinKing (https://binking.io)
  */
@@ -14,6 +14,7 @@
     binking._checkOptions(options, 'Form')
     result.cardNumberSource = cardNumberSource
     result.cardNumberNormalized = binking._getCardNumberNormalized(result.cardNumberSource)
+    result.cardNumberValidByLuhn = binking._isValidByLuhn(result.cardNumberNormalized)
     if (options.strategy === 'archive') {
       if (result.cardNumberNormalized.length >= 6) {
         var bank = binking._getBankByCardNumber(result.cardNumberNormalized)
@@ -208,8 +209,160 @@
     }
   }
 
+  binking.getBrandLogo = function (brandAlias, formLogoSchemeSource, optionsSource) {
+    var options = binking._assign({}, binking.defaultOptions, optionsSource || {})
+    var formLogoScheme = formLogoSchemeSource || 'original'
+    return options.brandsLogosPath + brandAlias + '-' + formLogoScheme + '.svg'
+  }
+
   binking.setDefaultOptions = function (options) {
     binking._assign(binking.defaultOptions, options)
+  }
+
+  binking.setValidationErrors = function (errorCodes) {
+    binking._assign(binking.validationErrors, errorCodes)
+  }
+
+  binking.validationErrors = {
+    CARD_NUMBER_REQUIRED: 'Укажите номер вашей банковской карты',
+    CARD_NUMBER_INVALID: 'Номер карты содержит недопустимые символы',
+    CARD_NUMBER_INCOMPLETE: 'Номер карты заполнен не до конца',
+    CARD_NUMBER_OVERCOMPLETE: 'В номере карты слишком много символов',
+    CARD_NUMBER_LUHN: 'В номере карты содержится опечатка',
+    MONTH_REQUIRED: 'Укажите месяц истечения карты',
+    MONTH_INVALID: 'Ошибка в месяце истечения карты',
+    YEAR_REQUIRED: 'Укажите год истечения карты',
+    YEAR_INVALID: 'Ошибка в годе истечения карты',
+    YEAR_IN_PAST: 'Year is in the past',
+    MONTH_IN_PAST: 'Month is in the past',
+    CODE_REQUIRED: 'Укажите код безопасности',
+    CODE_INVALID: 'Код безопасности указан неверно'
+  }
+
+  binking._isValidByLuhn = function (cardNumberNormalized) {
+    var nCheck = 0
+    var bEven = false
+    for (var n = cardNumberNormalized.length - 1; n >= 0; n--) {
+      var cDigit = cardNumberNormalized.charAt(n)
+      var nDigit = parseInt(cDigit, 10)
+      if (bEven && (nDigit *= 2) > 9) nDigit -= 9
+      nCheck += nDigit
+      bEven = !bEven
+    }
+    return nCheck % 10 === 0
+  }
+
+  binking.validateCardNumber = function (cardNumberSource) {
+    var cardNumber = cardNumberSource + ''
+    if (!cardNumber) {
+      return binking._makeValidationError('cardNumber', 'CARD_NUMBER_REQUIRED')
+    }
+    if (/[^\d\s]+/.test(cardNumber)) {
+      return binking._makeValidationError('cardNumber', 'CARD_NUMBER_INVALID')
+    }
+    var cardNumberNormalized = binking._getCardNumberNormalized(cardNumber)
+    var brand = binking._getBrandByCardNumber(cardNumberNormalized)
+    var minLength = brand ? brand.lengths[0] : 12
+    var maxLength = brand ? brand.lengths[brand.lengths.length - 1] : 19
+    if (cardNumberNormalized.length < minLength) {
+      return binking._makeValidationError('cardNumber', 'CARD_NUMBER_INCOMPLETE')
+    }
+    if (cardNumberNormalized.length > maxLength) {
+      return binking._makeValidationError('cardNumber', 'CARD_NUMBER_OVERCOMPLETE')
+    }
+    if (!binking._isValidByLuhn(cardNumberNormalized)) {
+      return binking._makeValidationError('cardNumber', 'CARD_NUMBER_LUHN')
+    }
+  }
+
+  binking.validateMonth = function (monthSource) {
+    var month = monthSource + ''
+    if (!month) {
+      return binking._makeValidationError('month', 'MONTH_REQUIRED')
+    }
+    var monthInt = parseInt(month)
+    if (!/^\d\d$/.test(month) || monthInt > 12 || monthInt < 1) {
+      return binking._makeValidationError('month', 'MONTH_INVALID')
+    }
+  }
+
+  binking.validateYear = function (yearSource) {
+    var year = yearSource + ''
+    if (!year) {
+      return binking._makeValidationError('year', 'YEAR_REQUIRED')
+    }
+    if (!/^\d\d$/.test(year)) {
+      return binking._makeValidationError('year', 'YEAR_INVALID')
+    }
+  }
+
+  binking.validateDate = function (monthSource, yearSource) {
+    var month = parseInt(monthSource)
+    var year = parseInt(yearSource)
+    if (isNaN(month) || isNaN(year)) return
+    var now = new Date()
+    var nowYear = now.getFullYear() % 2000
+    var nowMonth = now.getMonth() + 1
+    if (nowYear > year) {
+      return binking._makeValidationError('year', 'YEAR_IN_PAST')
+    }
+    if (nowYear === year && nowMonth > month) {
+      return binking._makeValidationError('month', 'MONTH_IN_PAST')
+    }
+  }
+
+  binking.validateCode = function (codeSource) {
+    var code = codeSource + ''
+    if (!code) {
+      return binking._makeValidationError('code', 'CODE_REQUIRED')
+    }
+    if (!/^\d\d\d\d?$/.test(code)) {
+      return binking._makeValidationError('code', 'CODE_INVALID')
+    }
+  }
+
+  binking.validate = function (cardNumberSource, monthSource, yearSource, codeSource) {
+    var hasErrors = false
+    var errors = {}
+    var cardNumberValidationError = binking.validateCardNumber(cardNumberSource)
+    if (cardNumberValidationError) {
+      errors[cardNumberValidationError.field] = cardNumberValidationError
+      hasErrors = true
+    }
+    var monthValidationError = binking.validateMonth(monthSource)
+    if (monthValidationError) {
+      errors[monthValidationError.field] = monthValidationError
+      hasErrors = true
+    }
+    var yearValidationError = binking.validateYear(yearSource)
+    if (yearValidationError) {
+      errors[yearValidationError.field] = yearValidationError
+      hasErrors = true
+    }
+    if (!monthValidationError && !yearValidationError) {
+      var dateValidationError = binking.validateDate(monthSource, yearSource)
+      if (dateValidationError) {
+        errors[dateValidationError.field] = dateValidationError
+        hasErrors = true
+      }
+    }
+    var codeValidationError = binking.validateCode(codeSource)
+    if (codeValidationError) {
+      errors[codeValidationError.field] = codeValidationError
+      hasErrors = true
+    }
+    return {
+      hasErrors: hasErrors,
+      errors
+    }
+  }
+
+  binking._makeValidationError = function (field, errorCode) {
+    return {
+      field: field,
+      code: errorCode,
+      message: binking.validationErrors[errorCode]
+    }
   }
 
   binking._checkOptions = function (options, method) {
@@ -281,6 +434,8 @@
       result.codeMaxLength = brand.codeMaxLength
       result.codeMinLength = brand.codeMinLength
       result.cardNumberLengths = brand.lengths
+      result.cardNumberMaxLength = brand.lengths[brand.lengths.length - 1]
+      result.cardNumberMinLength = brand.lengths[0]
       result.cardNumberGaps = brand.gaps
     }
     result.cardNumberBlocks = binking._getBlocks(result.cardNumberGaps, result.cardNumberLengths)
@@ -648,6 +803,9 @@
     cardNumberGaps: [4, 8, 12],
     cardNumberBlocks: [4, 4, 4, 7],
     cardNumberLengths: [12, 13, 14, 15, 16, 17, 18, 19],
+    cardNumberMaxLength: 19,
+    cardNumberMinLength: 12,
+    cardNumberValidByLuhn: true,
     cardNumberNice: '',
     cardNumberNormalized: '',
     cardNumberSource: undefined

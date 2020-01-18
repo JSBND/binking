@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>BinKing JS Plugin Demo</title>
+  <style>
+    body {
+      margin: 10px;
+      padding: 0;
+      font-size: 16px;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .cards {
+      width: 500px;
+      height: 260px;
+      position: relative;
+      margin: 0;
+    }
+
+    .cards .card {
+      position: absolute;
+      width: 370px;
+      height: 230px;
+      border-radius: 15px;
+    }
+
+    .cards .card.front {
+      background: #eeeeee;
+      background: linear-gradient(135deg, #eeeeee, #dddddd);
+      color: #000;
+      top: 0;
+      left: 0;
+      z-index: 100;
+    }
+
+    .cards .card.front .bank-logo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 20px 27px 0;
+      width: 100%;
+      height: 68px;
+      object-fit: contain;
+      object-position: 0 0;
+      display: none;
+    }
+
+    .cards .card.front .brand-logo {
+      position: absolute;
+      bottom: 26px;
+      right: 27px;
+      text-align: right;
+      height: 36px;
+      display: none;
+    }
+
+    .cards .card.front .fields {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 26px;
+    }
+
+    .cards .card.front .fields .number-field {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    .cards .card.front .fields .date-label {
+      margin-bottom: 6px;
+    }
+
+    .cards .card.front .fields .date-field {
+      display: inline-block;
+      width: 51px;
+    }
+
+    .cards .card.front .fields .month-field {
+      margin-right: 10px;
+    }
+
+    .cards .card.back {
+      bottom: 0;
+      right: 0;
+      background: #bbb;
+    }
+
+    .cards .card.back .code-field {
+      position: absolute;
+      bottom: 77px;
+      right: 26px;
+      width: 80px;
+    }
+
+    .cards .card.back .code-label {
+      position: absolute;
+      width: 80px;
+      right: 26px;
+      bottom: 34px;
+    }
+
+    .cards .card.back:before {
+      content: '';
+      position: absolute;
+      top: 26px;
+      background: #444;
+      width: 100%;
+      height: 60px;
+      left: 0;
+    }
+
+    .field {
+      padding: 6px 10px;
+      font-family: Courier, monospace;
+      font-size: 20px;
+      text-indent: 2px;
+      border: 1px solid #333;
+    }
+
+    .label {
+      display: block;
+    }
+
+    .hint {
+      line-height: 1.5;
+    }
+
+    @media (max-width: 540px) {
+      .cards {
+        width: 386px;
+        height: 300px;
+      }
+
+      .cards .card.back .code-field {
+        bottom: 16px;
+      }
+
+      .cards .card.back .code-label {
+        text-align: right;
+        right: 115px;
+        bottom: 17px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      body {
+        font-size: 14px;
+      }
+
+      .cards {
+        width: 300px;
+        height: 243px;
+      }
+
+      .cards .card {
+        width: 290px;
+        height: 180px;
+        border-radius: 10px;
+      }
+
+      .cards .card.front .bank-logo {
+        padding: 15px 16px 0;
+        height: 57px;
+      }
+
+      .cards .card.front .brand-logo {
+        bottom: 16px;
+        right: 17px;
+        height: 30px;
+      }
+
+      .cards .card.front .fields {
+        padding: 16px;
+      }
+
+      .cards .card.front .fields .number-field {
+        margin-bottom: 12px;
+      }
+
+      .cards .card.front .fields .date-label {
+        margin-bottom: 4px;
+      }
+
+      .cards .card.front .fields .date-field {
+        width: 45px;
+      }
+
+      .cards .card.front .fields .month-field {
+        margin-right: 10px;
+      }
+
+      .cards .card.back .code-field {
+        bottom: 16px;
+        width: 62px;
+      }
+
+      .cards .card.back .code-label {
+        right: 97px;
+        bottom: 16px;
+      }
+
+      .cards .card.back:before {
+        top: 16px;
+        height: 60px;
+      }
+
+      .field {
+        padding: 6px 10px;
+        font-size: 14px;
+        text-indent: 2px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cards">
+    <div class="front card">
+      <img class="bank-logo">
+      <img class="brand-logo">
+      <div class="fields">
+        <input class="field number-field" type="text" placeholder="0000 0000 0000 0000">
+        <label class="label date-label">Valid thru</label>
+        <input class="field month-field date-field" type="text" placeholder="MM">
+        <input class="field year-field date-field" type="text" placeholder="YY">
+      </div>
+    </div>
+    <div class="back card">
+      <input class="field code-field" type="password">
+      <label class="label code-label">Safety<br>code</label>
+    </div>
+  </div>
+
+  <p class="hint">По умолчанию это демо используются тестовые данные. Чтобы определить банк используйте номер карты начинающийся этими цифрами: 402333, 546918, 400812 или 677721. Чтобы работать с реальными данными, укажите свой API ключ в 5 строке JS кода.</p>
+
+  <pre class="result"></pre>
+
+  <script src="index.js"></script>
+
+  <script>
+    // Choose strategy:
+
+    // Api strategy exmaple settings:
+    // binking.setDefaultOptions({
+    //   strategy: "api",
+    //   apiKey: "YOUR_API_KEY",
+    //   sandbox: true
+    // });
+
+    // Archive strategy example settings:
+    binking.setDefaultOptions({
+      strategy: "archive",
+      banksLogosPath: 'banks-logos/',
+      brandsLogosPath: 'brands-logos/',
+    });
+    binking.addBanks({
+      "ru-sberbank": {
+        bankAlias: "ru-sberbank",
+        bankName: "Sberbank",
+        bankLocalName: "Сбербанк",
+        bankColor: "#1a9f29",
+        bankColors: ["#1a9f29"],
+        bankCountry: "ru",
+        bankSite: "https://www.sberbank.ru",
+        bankPhone: "8 800 555-55-50",
+        formBackgroundColor: "#1a9f29",
+        formBackgroundColors: ["#1a9f29", "#0d7518"],
+        formBackgroundLightness: "dark",
+        formTextColor: "#ffffff",
+        formLogoScheme: "light",
+        formBorderColor: "#ffffff"
+      },
+      "ru-rosbank": {
+        bankAlias: "ru-rosbank",
+        bankName: "Rosbank",
+        bankLocalName: "Росбанк",
+        bankColor: "#ff0016",
+        bankColors: ["#ff0016", "#000000"],
+        bankCountry: "ru",
+        bankSite: "https://www.rosbank.ru",
+        bankPhone: "8 800 200-54-34",
+        formBackgroundColor: "#f0f0f0",
+        formBackgroundColors: ["#f0f0f0", "#d6d0d0"],
+        formBackgroundLightness: "light",
+        formTextColor: "#000000",
+        formLogoScheme: "original",
+        formBorderColor: "#d6d0d0"
+      }
+    });
+    binking.addBins({
+      "402333": "ru-sberbank",
+      "546918": "ru-sberbank",
+      "400812": "ru-rosbank",
+      "677721": "ru-rosbank"
+    });
+
+    var front = document.querySelector(".front");
+    var bankLogo = document.querySelector(".bank-logo");
+    var brandLogo = document.querySelector(".brand-logo");
+    var numberField = document.querySelector(".number-field");
+    var codeField = document.querySelector(".code-field");
+    var frontFields = document.querySelectorAll(".front .field");
+    var resultPreview = document.querySelector(".result");
+
+    function applyBinkingResult(result) {
+      front.style.background = result.formBackgroundGradient;
+      front.style.color = result.formTextColor;
+      frontFields.forEach(field => (field.style.borderColor = result.formBorderColor));
+      codeField.placeholder = result.codeName || "";
+      if (result.formBankLogoBigSvg) bankLogo.src = result.formBankLogoBigSvg;
+      bankLogo.style.display = result.formBankLogoBigSvg ? "block" : "none";
+      if (result.formBrandLogoSvg) brandLogo.src = result.formBrandLogoSvg;
+      brandLogo.style.display = result.formBrandLogoSvg ? "block" : "none";
+      resultPreview.innerHTML = JSON.stringify(result, null, 2);
+    }
+
+    numberField.onkeyup = () => {
+      var value = numberField.value;
+
+      // callback example
+      binking(value, function(result, err) {
+        if (err) {
+          console.eror(err);
+          return;
+        }
+        applyBinkingResult(result);
+      });
+
+      // promise example
+      // binking(value)
+      //   .then(applyBinkingResult)
+      //   .catch(err => {
+      //     console.eror(err);
+      //   });
+
+      // sync example (works only if "strategy" option setted to "archive")
+      // var result = binking(value)
+      // applyBinkingResult(result);
+    };
+  </script>
+</body>
+</html>

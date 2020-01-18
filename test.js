@@ -133,6 +133,9 @@ var bankDetectedBrandDetectedResult = {
   cardNumberGaps: [4, 8, 12],
   cardNumberBlocks: [4, 4, 4, 7],
   cardNumberLengths: [16, 18, 19],
+  cardNumberMinLength: 16,
+  cardNumberMaxLength: 19,
+  cardNumberValidByLuhn: false,
   cardNumberNice: '4023 3300',
   cardNumberNormalized: '40233300',
   cardNumberSource: '40233300'
@@ -185,6 +188,9 @@ var bankNotDetectedBrandDetectedResult = {
   cardNumberGaps: [4, 8, 12],
   cardNumberBlocks: [4, 4, 4, 7],
   cardNumberLengths: [16, 18, 19],
+  cardNumberMinLength: 16,
+  cardNumberMaxLength: 19,
+  cardNumberValidByLuhn: false,
   cardNumberNice: '4000 0000',
   cardNumberNormalized: '40000000',
   cardNumberSource: '40000000'
@@ -227,6 +233,9 @@ var bankNotDetectedBrandNotDetectedResult = {
   cardNumberGaps: [4, 8, 12],
   cardNumberBlocks: [4, 4, 4, 7],
   cardNumberLengths: [12, 13, 14, 15, 16, 17, 18, 19],
+  cardNumberMinLength: 12,
+  cardNumberMaxLength: 19,
+  cardNumberValidByLuhn: true,
   cardNumberNice: '0000 0000',
   cardNumberNormalized: '00000000',
   cardNumberSource: '00000000'
@@ -269,6 +278,9 @@ var brandDetectedResult = {
   cardNumberGaps: [4, 8, 12],
   cardNumberBlocks: [4, 4, 4, 7],
   cardNumberLengths: [16, 18, 19],
+  cardNumberMinLength: 16,
+  cardNumberMaxLength: 19,
+  cardNumberValidByLuhn: false,
   cardNumberNice: '400',
   cardNumberNormalized: '400',
   cardNumberSource: '400'
@@ -311,6 +323,9 @@ var brandNotDetectedResult = {
   cardNumberGaps: [4, 8, 12],
   cardNumberBlocks: [4, 4, 4, 7],
   cardNumberLengths: [12, 13, 14, 15, 16, 17, 18, 19],
+  cardNumberMinLength: 12,
+  cardNumberMaxLength: 19,
+  cardNumberValidByLuhn: true,
   cardNumberNice: '000',
   cardNumberNormalized: '000',
   cardNumberSource: '000'
@@ -1286,5 +1301,178 @@ describe('binking._buildUrl()', function () {
 
   it('should return null if brand not found', function () {
     expect(binking._getBrandByCardNumber('')).to.equal(null)
+  })
+})
+
+describe('binking.validateCardNumber', function () {
+  it('should return error CARD_NUMBER_REQUIRED if card number is empty', function () {
+    var result = binking.validateCardNumber('')
+    expect(result.code).to.equal('CARD_NUMBER_REQUIRED')
+  })
+
+  it('should return error CARD_NUMBER_INVALID if card number has wrong symols', function () {
+    var result = binking.validateCardNumber('1a1')
+    expect(result.code).to.equal('CARD_NUMBER_INVALID')
+  })
+
+  it('should return error CARD_NUMBER_INCOMPLETE if card number length less then min length', function () {
+    var result = binking.validateCardNumber('1234')
+    expect(result.code).to.equal('CARD_NUMBER_INCOMPLETE')
+  })
+
+  it('should return error CARD_NUMBER_OVERCOMPLETE if card number length more then max length', function () {
+    var result = binking.validateCardNumber('12345678901234567890')
+    expect(result.code).to.equal('CARD_NUMBER_OVERCOMPLETE')
+  })
+
+  it('should return error CARD_NUMBER_LUHN if card number not pass luhn algorithm', function () {
+    var result = binking.validateCardNumber('1234567890123456')
+    expect(result.code).to.equal('CARD_NUMBER_LUHN')
+  })
+
+  it('should return undefined if everything is ok', function () {
+    var result = binking.validateCardNumber('4242424242424242')
+    expect(result).to.equal(undefined)
+  })
+})
+
+describe('binking.validateMonth', function () {
+  it('should return error MONTH_REQUIRED if month is empty', function () {
+    var result = binking.validateMonth('')
+    expect(result.code).to.equal('MONTH_REQUIRED')
+  })
+
+  it('should return error MONTH_INVALID if month has wrong symbols or not in 01–12 range', function () {
+    var result = binking.validateMonth('XX')
+    expect(result.code).to.equal('MONTH_INVALID')
+    result = binking.validateMonth('0')
+    expect(result.code).to.equal('MONTH_INVALID')
+    result = binking.validateMonth('012')
+    expect(result.code).to.equal('MONTH_INVALID')
+    result = binking.validateMonth('13')
+    expect(result.code).to.equal('MONTH_INVALID')
+  })
+
+  it('should return undefined if everything is ok', function () {
+    var result = binking.validateMonth('01')
+    expect(result).to.equal(undefined)
+    result = binking.validateMonth('12')
+    expect(result).to.equal(undefined)
+  })
+})
+
+describe('binking.validateYear', function () {
+  it('should return error YEAR_REQUIRED if year is empty', function () {
+    var result = binking.validateYear('')
+    expect(result.code).to.equal('YEAR_REQUIRED')
+  })
+
+  it('should return error YEAR_INVALID if year has wrong symbols', function () {
+    var result = binking.validateYear('XX')
+    expect(result.code).to.equal('YEAR_INVALID')
+    result = binking.validateYear('0')
+    expect(result.code).to.equal('YEAR_INVALID')
+    result = binking.validateYear('012')
+    expect(result.code).to.equal('YEAR_INVALID')
+  })
+
+  it('should return undefined if everything is ok', function () {
+    var result = binking.validateYear('19')
+    expect(result).to.equal(undefined)
+  })
+})
+
+describe('binking.validateDate', function () {
+  it('should return error YEAR_IN_PAST if year in past', function () {
+    var now = new Date()
+    var year = +(now.getFullYear() + '').slice(2, 4) - 1
+    var result = binking.validateDate('12', year)
+    expect(result.code).to.equal('YEAR_IN_PAST')
+  })
+
+  it('should return error MONTH_IN_PAST if month in past', function () {
+    var now = new Date()
+    var year = +(now.getFullYear() + '').slice(2, 4)
+    var month = now.getMonth() + ''
+    if (month.length === 1) {
+      month = '0' + month
+    }
+    var result = binking.validateDate(month, year)
+    expect(result.code).to.equal('MONTH_IN_PAST')
+  })
+
+  it('should return undefined if everything is ok', function () {
+    var now = new Date()
+    var year = +(now.getFullYear() + '').slice(2, 4) + 1
+    var result = binking.validateDate('12', year)
+    expect(result).to.equal(undefined)
+  })
+})
+
+describe('binking.validateCode', function () {
+  it('should return error CODE_REQUIRED if code is empty', function () {
+    var result = binking.validateCode('')
+    expect(result.code).to.equal('CODE_REQUIRED')
+  })
+
+  it('should return error CODE_INVALID if code has wrong symbols or invalid length', function () {
+    var result = binking.validateCode('a12')
+    expect(result.code).to.equal('CODE_INVALID')
+    result = binking.validateCode('12345')
+    expect(result.code).to.equal('CODE_INVALID')
+    result = binking.validateCode('12')
+    expect(result.code).to.equal('CODE_INVALID')
+  })
+
+  it('should return undefined if everything is ok', function () {
+    var result = binking.validateCode('123')
+    expect(result).to.equal(undefined)
+    result = binking.validateCode('1234')
+    expect(result).to.equal(undefined)
+  })
+})
+
+describe('binking.validate', function () {
+  it('should return errors object and hasErrors true if errors exists', function () {
+    var result = binking.validate('1234', '13', '2a', '12345')
+    expect(result.hasErrors).to.equal(true)
+    expect(result.errors).to.be.an('object')
+    expect(_.keys(result.errors).length).to.equal(4)
+    expect(
+      _.find(result.errors, function (error) {
+        return error.code === 'CARD_NUMBER_INCOMPLETE'
+      })
+    ).to.be.an('object')
+    expect(
+      _.find(result.errors, function (error) {
+        return error.code === 'MONTH_INVALID'
+      })
+    ).to.be.an('object')
+    expect(
+      _.find(result.errors, function (error) {
+        return error.code === 'YEAR_INVALID'
+      })
+    ).to.be.an('object')
+    expect(
+      _.find(result.errors, function (error) {
+        return error.code === 'CODE_INVALID'
+      })
+    ).to.be.an('object')
+  })
+
+  it('should return empty errors object and hasErrors false if everything is ok', function () {
+    var result = binking.validate('4242424242424242', '11', '99', '123')
+    expect(result.hasErrors).to.equal(false)
+    expect(_.keys(result.errors).length).to.equal(0)
+  })
+})
+
+describe('binking.setValidationErrors', function () {
+  it('should change validation errors', function () {
+    binking.setValidationErrors({
+      CARD_NUMBER_REQUIRED: 'XXX'
+    })
+    var result = binking.validateCardNumber('')
+    expect(result.message).to.equal('XXX')
   })
 })
