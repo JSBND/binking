@@ -75,20 +75,14 @@ binking.setDefaultOptions({
 - **`brandsLogosPath`** по умолчанию `"https://static.binking.io/brands-logos/"`  
   Путь к файлам с логотипами брендов. Если вы загрузили логотипы брендов к себе на сервер, измените этот путь, иначе логотипы берндов будут раздаваться с нашего сервера. Папка с брендами включена в файлы этого репозитория `brand-logos`.
 - **`brandLogoPolicy`** по умолчанию `"auto"`  
-  Эта настройка определяет стиль логотипа бренда. Доступные значения: "dark", "light", "original", "auto", "mono".
-  - `"colored"`  
+  Эта настройка определяет стиль логотипа бренда. Доступные значения: `"original"`, `"inverted"`, `"auto"`.
+  - `"original"`  
     Логотип бренда будет цветным
-  - `"dark"`  
-    Логотип бренда будет чёрным
-  - `"light"`  
+  - `"inverted"`  
     Логотип бренда будет белым
-  - `"mono"`  
-    Логотип бренда будет белым, если фон (`formBackgroundLightness`) тёмный (`"dark"`)
-    Логотип бренда будет чёрным, если фон (`formBackgroundLightness`) светлый (`"light"`)
   - `"auto"`  
     Логотип бренда будет цветным, если стиль логотипа банка (`formLogoScheme`) цветной (`"original"`)
-    Логотип бренда будет белым, если стиль логотипа банка (`formLogoScheme`) белый (`"light"`)
-    Логотип бренда будет чёрным, если стиль логотипа банка (`formLogoScheme`) чёрный (`"dark"`)
+    Логотип бренда будет белым, если стиль логотипа банка (`formLogoScheme`) белый (`"inverted"`)
     Логотип бренда будет цветным, если банк не определён
 - **`maskDigitSymbol`** по умолчанию `"0"`  
   Символ, обозначающий цифру в маске номера карты, указанной в свойстве экземпляра `cardNumberMask`.
@@ -175,16 +169,12 @@ var result = binking(cardNumber, options);
 - **`bankPhone`** по умолчанию `null`  
   Телефон банка.
 - **`bankLogoBigOriginalSvg`** по умолчанию `null`  
-  Ссылка на большой цветной логотип банка.
-- **`bankLogoBigDarkSvg`** по умолчанию `null`  
-  Большой чёрный логотип банка.
-- **`bankLogoBigLightSvg`** по умолчанию `null`  
+  Ссылка на большой цветной логотип банка
+- **`bankLogoBigInvertedSvg`** по умолчанию `null`  
   Большой белый логотип банка.
 - **`bankLogoSmallOriginalSvg`** по умолчанию `null`  
   Маленький, вписывающийся в квадрат, цветной логотип банка.
-- **`bankLogoSmallDarkSvg`** по умолчанию `null`  
-  Маленький чёрный логотип банка.
-- **`bankLogoSmallLightSvg`** по умолчанию `null`  
+- **`bankLogoSmallInvertedSvg`** по умолчанию `null`  
   Маленький белый логотип банка.
 - **`bankColor`** по умолчанию `null`  
   Основной цвет банка.
@@ -207,14 +197,12 @@ var result = binking(cardNumber, options);
 - **`formBankLogoSmallSvg`** по умолчанию `null`  
   Ссылка на маленький логотип банка, который хорошо будет смотреться на фоне формы.
 - **`formLogoScheme`** по умолчанию `null`  
-  Цветовая схема логотипа для формы "original", "light" или "dark".
+  Цветовая схема логотипа для формы "original" или "inverted".
 - **`formBrandLogoSvg`** по умолчанию `null`  
   Ссылка на логотип бренда, который хорошо будет смотреться на фоне формы.
 - **`brandLogoOriginalSvg`** по умолчанию `null`  
   Ссылка на цветной логотип бренда.
-- **`brandLogoDarkSvg`** по умолчанию `null`  
-  Ссылка на чёрный логотип бренда.
-- **`brandLogoLightSvg`** по умолчанию `null`  
+- **`brandLogoInvertedSvg`** по умолчанию `null`  
   Ссылка на белый логотип бренда.
 - **`brandAlias`** по умолчанию `null`  
   Короткое название типа на английском, все буквы маленькие, без пробелов.
@@ -247,9 +235,9 @@ var result = binking(cardNumber, options);
 - **`cardNumberSource`**  
   Номер карты, переданный при вызове функции.
 
-Если по номеру карты не удалось определить данные о банке, поля `bankAlias`, `bankName`, `bankLocalName`, `bankCountry`, `bankSite`, `bankPhone`, `bankLogoBigOriginalSvg`, `bankLogoBigDarkSvg`, `bankLogoBigLightSvg`, `bankLogoSmallOriginalSvg`, `bankLogoSmallDarkSvg`, `bankColor`, `bankColors`, `formBackgroundColor`, `formBackgroundColors`, `formBackgroundGradient`, `formBackgroundLightness`, `formTextColor`, `formBorderColor`, `formBankLogoBigSvg`, `formBankLogoSmallSvg` будут иметь значение по умолчанию.
+Если по номеру карты не удалось определить данные о банке, поля `bankAlias`, `bankName`, `bankLocalName`, `bankCountry`, `bankSite`, `bankPhone`, `bankLogoBigOriginalSvg`, `bankLogoBigInvertedSvg`, `bankLogoSmallOriginalSvg`, `bankColor`, `bankColors`, `formBackgroundColor`, `formBackgroundColors`, `formBackgroundGradient`, `formBackgroundLightness`, `formTextColor`, `formBorderColor`, `formBankLogoBigSvg`, `formBankLogoSmallSvg` будут иметь значение по умолчанию.
 
-Если по номеру карты не удалось определить данные о типе, поля `brandAlias`, `brandName`, `brandLogoOriginalSvg`, `brandLogoDarkSvg`, `brandLogoLightSvg`, `formBrandLogoSvg`, `codeName`, `codeMinLength`, `codeMaxLength`, `cardNumberMask`, `cardNumberGaps`, `cardNumberBlocks`, `cardNumberLengths` будут иметь значение по умолчанию.
+Если по номеру карты не удалось определить данные о типе, поля `brandAlias`, `brandName`, `brandLogoOriginalSvg`, `brandLogoInvertedSvg`, `formBrandLogoSvg`, `codeName`, `codeMinLength`, `codeMaxLength`, `cardNumberMask`, `cardNumberGaps`, `cardNumberBlocks`, `cardNumberLengths` будут иметь значение по умолчанию.
 
 ### Получение данных конкретного банка
 
@@ -267,7 +255,7 @@ var result = binking.getBank(bankAlias, options);
 
 В качестве `bankAlias` передайте сохранённый ранее алиас банка. Например: "ru-sberbank"
 
-В переменной `result` будет храниться объект со всеми данными о банке. Названия свойств будут такими же, как и при вызове функции `binking`, однако там не будет полей относящихся к бренду и номеру карты. Перечень возвращаемых полей: `bankAlias`, `bankName`, `bankLocalName`, `bankCountry`, `bankSite`, `bankPhone`, `bankLogoBigOriginalSvg`, `bankLogoBigDarkSvg`, `bankLogoBigLightSvg`, `bankLogoSmallOriginalSvg`, `bankLogoSmallDarkSvg`, `bankColor`, `bankColors`, `formBackgroundColor`, `formBackgroundColors`, `formBackgroundGradient`, `formBackgroundLightness`, `formTextColor`, `formBorderColor`, `formBankLogoBigSvg`, `formBankLogoSmallSvg`.
+В переменной `result` будет храниться объект со всеми данными о банке. Названия свойств будут такими же, как и при вызове функции `binking`, однако там не будет полей относящихся к бренду и номеру карты. Перечень возвращаемых полей: `bankAlias`, `bankName`, `bankLocalName`, `bankCountry`, `bankSite`, `bankPhone`, `bankLogoBigOriginalSvg`, `bankLogoBigInvertedSvg`, `bankLogoSmallOriginalSvg`, `bankColor`, `bankColors`, `formBackgroundColor`, `formBackgroundColors`, `formBackgroundGradient`, `formBackgroundLightness`, `formTextColor`, `formBorderColor`, `formBankLogoBigSvg`, `formBankLogoSmallSvg`.
 
 Если банк с указанным алиасом найден не был, будет возвращено `null`.
 
@@ -302,9 +290,7 @@ var result = binking.getBrand(brandAlias, options);
 
 - **`logoOriginalSvg`** по умолчанию `null`  
   Ссылка на цветной логотип бренда.
-- **`logoDarkSvg`** по умолчанию `null`  
-  Ссылка на чёрный логотип бренда.
-- **`logoLightSvg`** по умолчанию `null`  
+- **`logoInvertedSvg`** по умолчанию `null`  
   Ссылка на белый логотип бренда.
 - **`name`**  
   Название бренда.
@@ -336,7 +322,7 @@ var result = binking.getBrandLogo(brandAlias, options);
 var result = binking.getBrandLogo(brandAlias, logoScheme, options);
 ```
 
-Вспомогательная функция для получения ссылки на логотип бренда. Если не указывать `logoScheme`, будет счиатться, что он равен `original`. Допустимые значения для `logoScheme` — `original`, `dark` и `light`.
+Вспомогательная функция для получения ссылки на логотип бренда. Если не указывать `logoScheme`, будет считаться, что он равен `original`. Допустимые значения для `logoScheme` — `original` или `inverted`.
 
 ### Получение данных нескольких брендов
 

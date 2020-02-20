@@ -67,9 +67,8 @@
     var brand = binking._brands[brandAlias]
     if (!brand) return null
     var logoOriginalSvg = options.brandsLogosPath + brand.alias + '-original.svg'
-    var logoDarkSvg = options.brandsLogosPath + brand.alias + '-dark.svg'
-    var logoLightSvg = options.brandsLogosPath + brand.alias + '-light.svg'
-    var brandWithLogos = binking._assign({}, brand, { logoOriginalSvg: logoOriginalSvg, logoDarkSvg: logoDarkSvg, logoLightSvg: logoLightSvg })
+    var logoInvertedSvg = options.brandsLogosPath + brand.alias + '-inverted.svg'
+    var brandWithLogos = binking._assign({}, brand, { logoOriginalSvg: logoOriginalSvg, logoInvertedSvg: logoInvertedSvg })
     return brandWithLogos
   }
 
@@ -419,9 +418,8 @@
       result.brandAlias = brand.alias
       result.brandName = brand.name
       result.brandLogoOriginalSvg = options.brandsLogosPath + brand.alias + '-original.svg'
-      result.brandLogoDarkSvg = options.brandsLogosPath + brand.alias + '-dark.svg'
-      result.brandLogoLightSvg = options.brandsLogosPath + brand.alias + '-light.svg'
-      var formBrandLogoBasename = binking._getFormBrandLogoBasename(result.brandAlias, options.brandLogoPolicy, result.backgroundLightness, result.formLogoScheme)
+      result.brandLogoInvertedSvg = options.brandsLogosPath + brand.alias + '-inverted.svg'
+      var formBrandLogoBasename = binking._getFormBrandLogoBasename(result.brandAlias, options.brandLogoPolicy, result.formLogoScheme)
       result.formBrandLogoSvg = options.brandsLogosPath + formBrandLogoBasename + '.svg'
       result.codeName = brand.codeName
       result.codeMaxLength = brand.codeMaxLength
@@ -440,11 +438,9 @@
     if (bank) {
       binking._assign(result, bank)
       result.bankLogoBigOriginalSvg = options.banksLogosPath + bank.bankAlias + '-big-original.svg'
-      result.bankLogoBigDarkSvg = options.banksLogosPath + bank.bankAlias + '-big-dark.svg'
-      result.bankLogoBigLightSvg = options.banksLogosPath + bank.bankAlias + '-big-light.svg'
+      result.bankLogoBigInvertedSvg = options.banksLogosPath + bank.bankAlias + '-big-inverted.svg'
       result.bankLogoSmallOriginalSvg = options.banksLogosPath + bank.bankAlias + '-small-original.svg'
-      result.bankLogoSmallDarkSvg = options.banksLogosPath + bank.bankAlias + '-small-dark.svg'
-      result.bankLogoSmallLightSvg = options.banksLogosPath + bank.bankAlias + '-small-light.svg'
+      result.bankLogoSmallInvertedSvg = options.banksLogosPath + bank.bankAlias + '-small-inverted.svg'
       result.formBankLogoBigSvg = options.banksLogosPath + bank.bankAlias + '-big-' + bank.formLogoScheme + '.svg'
       result.formBankLogoSmallSvg = options.banksLogosPath + bank.bankAlias + '-small-' + bank.formLogoScheme + '.svg'
     }
@@ -612,18 +608,13 @@
 
   binking._promiseSupported = typeof Promise !== 'undefined' && Promise.toString().indexOf('[native code]') !== -1
 
-  binking._getFormBrandLogoBasename = function (brandAlias, brandLogoPolicy, formBackgroundLightness, formLogoScheme) {
+  binking._getFormBrandLogoBasename = function (brandAlias, brandLogoPolicy, formLogoScheme) {
     switch (brandLogoPolicy) {
       case 'auto':
         return brandAlias + '-' + (formLogoScheme || 'original')
+      case 'inverted':
+        return brandAlias + '-inverted'
       case 'original':
-        return brandAlias + '-original'
-      case 'mono':
-        return brandAlias + (formBackgroundLightness === 'light' ? '-dark' : '-light')
-      case 'dark':
-        return brandAlias + '-dark'
-      case 'light':
-        return brandAlias + '-light'
       default:
         return brandAlias + '-original'
     }
@@ -767,18 +758,15 @@
     bankSite: null,
     bankPhone: null,
     bankLogoBigOriginalSvg: null,
-    bankLogoBigDarkSvg: null,
-    bankLogoBigLightSvg: null,
+    bankLogoBigInvertedSvg: null,
     bankLogoSmallOriginalSvg: null,
-    bankLogoSmallDarkSvg: null,
-    bankLogoSmallLightSvg: null,
+    bankLogoSmallInvertedSvg: null,
     bankColor: null,
     bankColors: null,
     brandAlias: null,
     brandName: null,
     brandLogoOriginalSvg: null,
-    brandLogoDarkSvg: null,
-    brandLogoLightSvg: null,
+    brandLogoInvertedSvg: null,
     formBackgroundColor: '#eeeeee',
     formBackgroundColors: ['#eeeeee', '#dddddd'],
     formBackgroundGradient: binking._getGradient(['#eeeeee', '#dddddd'], binking.defaultOptions.gradientDegrees),
