@@ -1,7 +1,7 @@
 /*
- * binking v1.0.7
+ * binking v1.0.8
  * Get bank logo, colors, phone, brand, validation and etc. by card number
- * https://github.com/binkingio/binking.git
+ * https://github.com/union-1/binking.git
  * by BinKing (https://binking.io)
  */
 
@@ -232,8 +232,8 @@
     MONTH_INVALID: 'Ошибка в месяце истечения карты',
     YEAR_REQUIRED: 'Укажите год истечения карты',
     YEAR_INVALID: 'Ошибка в годе истечения карты',
-    YEAR_IN_PAST: 'Year is in the past',
-    MONTH_IN_PAST: 'Month is in the past',
+    YEAR_IN_PAST: 'Год указан в прошедшем времени',
+    MONTH_IN_PAST: 'Месяц указан в прошедшем времени',
     CODE_REQUIRED: 'Укажите код безопасности',
     CODE_INVALID: 'Код безопасности указан неверно'
   }
