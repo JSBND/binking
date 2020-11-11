@@ -440,8 +440,8 @@ var result = binking.validateYear(month, year);
 
 Возможные коды (`code`) и сообщения об ошибках (`message`):
 
-- `YEAR_IN_PAST`: "Year is in the past"
-- `MONTH_IN_PAST`: "Month is in the past"
+- `YEAR_IN_PAST`: "Год указан в прошедшем времени"
+- `MONTH_IN_PAST`: "Месяц указан в прошедшем времени"
 
 ### Валидация кода безопасности
 
